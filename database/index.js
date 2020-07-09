@@ -1,14 +1,10 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(
-  // 'mongodb://172.17.0.2/fec', // for AWS/Docker deployment
-  'mongodb://localhost/fec', // for local
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
-);
+const mongoUri = 'mongodb://localhost/hotelcarousel';
 
-const db = mongoose.connection;
-
-db.on('error', () => console.log('db connection error'));
-db.once('open', () => console.log('db connected'));
+const db = mongoose.connect(mongoUri, { useNewUrlParser: true })
+  .then(() => console.log('Connected'))
+  .catch((err) => { console.log(err); });
 
 module.exports = db;
+
