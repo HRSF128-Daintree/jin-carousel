@@ -4,10 +4,9 @@
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/HRSF128-Daintree/reviews2
+  - https://github.com/HRSF128-Daintree/erik-calendar
+  - https://github.com/HRSF128-Daintree/about
 
 ## Table of Contents
 
@@ -37,11 +36,74 @@ npm install -g webpack
 npm install
 ```
 
-TODO:
-- figure out why the 3 album components on the right will re-render the 1st time i click either an arrow button or menu photo, & only the 1st time
+
+## Server API
+
+### Get hotel info
+  * GET `/api/:hotelID/photosd`
+
+**Path Parameters:**
+  * `hotelId` hotel id
+
+**Success Status Code:** `200`
+
+**Returns:** JSON
+
+```json
+    {
+      "user_id": "Number",
+      "hotel_id": "Number",
+      "name": "String",
+      "date": "Date",
+      "hotel_photos": [{ "imageUrl": "String", "caption": "String" }],
+      "travelers": [{ "imageUrl": "String", "username": "String", "rating": "Number" }],
+      "price": "Number",
+      "reviews": "Number",
+      "rating": "Number",
+      "location": "String",
+      "type": "String",
+      "phoneNumber": "Number",
+      "views": "Number",
+    }
+```
+
+### Add hotel
+  * POST `/api/:hotelID/photos`
+
+**Success Status Code:** `201`
+
+**Request Body**: Expects JSON with the following keys.
+
+```json
+    {
+      "hotel_photos": [{ "imageUrl": "String", "caption": "String" }],
+    }
+```
 
 
-- refactor assignFilters in generatePhotoInfo in seedHelpers.js to be more accurate to real life, e.g. follow actual categories/types of the photos rather than random?
-- fill out trips for generatePhotoInfo based on actual trips user creates w/ UI
-- refactor user contributions in generateUserInfo to count actual # of contributions per user?
-- refactor Carousel & PhotoMenu into class components, move props/methods unique to those from App.jsx -> can't b/c methods use setState
+### Update hotel photo caption
+  * PATCH `/api/:hotelID/photos`
+
+**Path Parameters:**
+  * `hotelId` hotel id
+
+**Success Status Code:** `204`
+
+**Request Body**: Expects JSON with any of the following keys (include only keys to be updated)
+
+```json
+    {
+      "hotel_photos": [{
+        "imageUrl": "String",
+        "caption": "String"
+        }],
+    }
+```
+
+### Delete hotel photos
+  * DELETE `/api/:hotelID/photos`
+
+**Path Parameters:**
+  * `id` hotel id
+
+**Success Status Code:** `204`
