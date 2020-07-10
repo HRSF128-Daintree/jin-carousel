@@ -14,8 +14,19 @@ CREATE TABLE IF NOT EXISTS hotels (
 	hotel_rating int,
 	num_reviews int,
 	hotel_photos map<text, text>,
-	traveler_photos map<text, text, text, int, timestamp>,
-	PRIMARY KEY (hotel_id)
+	PRIMARY KEY (hotel_id, num_reviews)
+);
+
+CREATE TABLE traveler_photos (
+	traveler_photo_id uuid
+	imageUrl text,
+	caption text,
+	username text
+	traveler_rating int,
+	date timestamp,
+	hotel_id uuid,
+	user_id uuid,
+	PRIMARY KEY (traveler_photo_id, date)
 );
 
 CREATE TABLE IF NOT EXISTS users (
