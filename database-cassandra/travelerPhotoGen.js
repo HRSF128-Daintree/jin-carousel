@@ -14,8 +14,8 @@ const dataGen = () => {
     const fakeDate = randomDate(new Date(1910, 0, 1), new Date(2020, 0, 1))
 
     writer.write({
-      id: counter++,
-      t_imageUrl: faker.image.imageUrl(),
+      traveler_photo_id: counter++,
+      imageUrl: faker.image.imageUrl(),
       caption: faker.company.catchPhrase(),
       traveler_rating: faker.random.number({ min: 0, max: 5 }),
       date: fakeDate,

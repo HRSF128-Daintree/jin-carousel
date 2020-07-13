@@ -14,7 +14,7 @@ const dataGen = () => {
     const fakeDate = randomDate(new Date(2000, 0, 1), new Date(2020, 0, 1))
 
     writer.write({
-      id: counter++,
+      user_id: counter++,
       email: counter + faker.internet.email(),
       username: faker.hacker.noun() + counter,
       password: faker.random.number({ min: 0, max:100000000 }),

@@ -1,8 +1,8 @@
 const Models = require('./Models.js');
 
-function getPhotos(req, res) {
-  const { hotelID } = req.params;
-  Models.getPhotos(hotelID, (err, data) => {
+function getHotelPhotos(req, res) {
+  const { hotelId } = req.params;
+  Models.getHotelPhotos(hotelId, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -11,10 +11,9 @@ function getPhotos(req, res) {
   });
 }
 
-function postPhotos(req, res) {
-  const { hotelID } = req.params;
-  const { imageUrl, caption } = req.body;
-  Models.postPhotos(hotelID, imageUrl, caption, (err, data) => {
+function getTravelerPhotos(req, res) {
+  const { hotelId } = req.params;
+  Models.getTravelerPhotos(hotelId, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -23,10 +22,22 @@ function postPhotos(req, res) {
   });
 }
 
-function updatePhotos(req, res) {
+function postTravelerPhoto(req, res) {
   const { hotelID } = req.params;
+  const { imageUrl, caption, rating, date } = req.body;
+  Models.postTravelerPhoto(hotelID, imageUrl, caption, rating, date, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+}
+
+function putTravelerCaption(req, res) {
+  const { hotelID, travelerPhotoId } = req.params;
   const { caption } = req.body;
-  Models.updatePhotos(hotelID, caption, (err, data) => {
+  Models.putTravelerCaption(hotelID, travelerPhotoId, caption, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -35,9 +46,9 @@ function updatePhotos(req, res) {
   });
 }
 
-function deletePhotos(req, res) {
-  const { hotelID } = req.params;
-  Models.deletePhotos(hotelID, (err, data) => {
+function deleteTravelerPhoto(req, res) {
+  const { hotelID, travelerPhotoId } = req.params;
+  Models.deleteTravelerPhoto(hotelID, travelerPhotoId, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -47,8 +58,9 @@ function deletePhotos(req, res) {
 }
 
 module.exports = {
-  getPhotos,
-  postPhotos,
-  updatePhotos,
-  deletePhotos
+  getHotelPhotos,
+  getTravelerPhotos,
+  postTravelerPhoto,
+  putTravelerCaption,
+  deleteTravelerPhoto
 }

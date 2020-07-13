@@ -14,7 +14,7 @@ const dataGen = () => {
     const fakeDate = randomDate(new Date(1910, 0, 1), new Date(2020, 0, 1))
 
     writer.write({
-      id: counter++,
+      hotel_id: counter++,
       name: faker.company.companyName(),
       address: faker.address.streetAddress(),
       city: faker.address.city(),
