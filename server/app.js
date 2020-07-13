@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser')
 const db = require('../database/index.js');
 const Controllers = require('./Controllers.js');
 
 const app = express();
 const port = 3002;
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use( express.static( path.join(__dirname, '/../client/dist') ) );
 
 app.get('/api/:hotelId/hotelphotos', (req, res) => {
