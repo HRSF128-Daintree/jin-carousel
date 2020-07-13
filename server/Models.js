@@ -1,37 +1,32 @@
-const Hotel = require('../database/schema.js');
+const db = require('../database-postgresql');
 
-function getPhotos(hotelId, callback) {
-  Hotel.find({ hotel_id: hotelId }, callback);
+function getHotelPhotos(hotelId, callback) {
+  const q = `SELECT h_imageUrl, caption FROM hotel_photos INNER JOIN hotels ON hotel_photos.hotel_id = hotels.id WHERE hotel_photos.hotel_id = 23`;
+  db.query(q, callback);
 }
 
-function postPhotos(hotelId, imageUrl, caption, callback) {
-  Hotel.update({ hotel_id: hotelId, 'hotel_photos._id': id },
-    {
-      $push: {
-        hotel_photos: {
-          imageUrl: imageUrl,
-          caption: caption,
-        },
-      },
-    }, callback);
+function getTravelerPhotos(hotelId, callback) {
+  const q = `SELECT t_imageUrl, caption FROM traveler_photos INNER JOIN hotels ON traveler_photos.hotel_id = hotels.id WHERE traveler_photos.hotel_id = ${hotelId}`;
+  db.query(q, callback);
 }
 
-function updatePhotos(hotelId, caption, callback) {
-  Hotel.update({ hotel_id: hotelId, 'hotel_photos._id': id },
-    {
-      $set: {
-        'hotel_photos.$.caption': caption,
-      },
-    }, callback);
+function postTravelerPhoto(hotelId, userId, imageUrl, date, caption, rating, callback) {
+  const q = `INSERT INTO traveler_photos(t_imageUrl, caption, traveler_rating, date, hotel_id, user_id) VALUES ('testing', 'testing', 5, '2020-07-13T03:57:50.009Z', 23, 9);`
+  db.query(q, callback);
 }
 
-function deletePhotos(hotelId, callback) {
-  Hotel.findByIdAndRemove({ hotel_id: hotelId }, callback);
+function putTravelerCaption(hotelId, caption, callback) {
+
+}
+
+function deleteTravelerPhoto(hotelId, callback) {
+
 }
 
 module.exports = {
-  getPhotos,
-  postPhotos,
-  updatePhotos,
-  deletePhotos,
+  getHotelPhotos,
+  getTravelerPhotos,
+  postTravelerPhoto,
+  putTravelerCaption,
+  deleteTravelerPhoto
 }

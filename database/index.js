@@ -7,4 +7,3 @@ const db = mongoose.connect(mongoUri, { useNewUrlParser: true })
   .catch((err) => { console.log(err); });
 
 module.exports = db;
-

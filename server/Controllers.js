@@ -1,8 +1,8 @@
 const Models = require('./Models.js');
 
-function getPhotos(req, res) {
-  const { hotelID } = req.params;
-  Models.getPhotos(hotelID, (err, data) => {
+function getHotelPhotos(req, res) {
+  const { hotelId } = req.params;
+  Models.getHotelPhotos(hotelId, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -11,10 +11,24 @@ function getPhotos(req, res) {
   });
 }
 
-function postPhotos(req, res) {
-  const { hotelID } = req.params;
+function getTravelerPhotos(req, res) {
+  const { hotelId } = req.params;
+  Models.getTravelerPhotos(hotelId, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+}
+
+function postTravelerPhoto(req, res) {
+  const hotelId = parseInt(req.params.hotelId);
   const { imageUrl, caption } = req.body;
-  Models.postPhotos(hotelID, imageUrl, caption, (err, data) => {
+  const userId = parseInt(req.body.userId);
+  const rating = parseInt(req.body.rating);
+  const date = new Date();
+  Models.postTravelerPhoto(hotelId, userId, imageUrl, caption, rating, date, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -23,10 +37,10 @@ function postPhotos(req, res) {
   });
 }
 
-function updatePhotos(req, res) {
-  const { hotelID } = req.params;
+function putTravelerCaption(req, res) {
+  const { hotelId, travelerPhotoId } = req.params;
   const { caption } = req.body;
-  Models.updatePhotos(hotelID, caption, (err, data) => {
+  Models.putTravelerCaption(hotelId, travelerPhotoId, caption, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -35,9 +49,9 @@ function updatePhotos(req, res) {
   });
 }
 
-function deletePhotos(req, res) {
-  const { hotelID } = req.params;
-  Models.deletePhotos(hotelID, (err, data) => {
+function deleteTravelerPhoto(req, res) {
+  const { hotelID, travelerPhotoId } = req.params;
+  Models.deleteTravelerPhoto(hotelID, travelerPhotoId, (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -47,8 +61,9 @@ function deletePhotos(req, res) {
 }
 
 module.exports = {
-  getPhotos,
-  postPhotos,
-  updatePhotos,
-  deletePhotos
+  getHotelPhotos,
+  getTravelerPhotos,
+  postTravelerPhoto,
+  putTravelerCaption,
+  deleteTravelerPhoto
 }

@@ -60,9 +60,9 @@ const sampleHotel = [{
   },
 ]
 
-  const insertSampleHotels = function () {
-    Hotel.create(sampleHotel)
-      .then(() => process.exit());
-  };
+const insertSampleHotels = function () {
+  Hotel.create(sampleHotel)
+    .then(() => process.exit());
+};
 
-  insertSampleHotels();
+insertSampleHotels();
