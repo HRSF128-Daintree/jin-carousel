@@ -1,37 +1,31 @@
-const Hotel = require('../database/schema.js');
+const db = require('../database-postgresql');
 
-function getPhotos(hotelId, callback) {
-  Hotel.find({ hotel_id: hotelId }, callback);
+function getHotelPhotos(hotelId, callback) {
+  const q = 'SELECT * FROM hotels WHERE id=0';
+  db.query(q, callback);
 }
 
-function postPhotos(hotelId, imageUrl, caption, callback) {
-  Hotel.update({ hotel_id: hotelId, 'hotel_photos._id': id },
-    {
-      $push: {
-        hotel_photos: {
-          imageUrl: imageUrl,
-          caption: caption,
-        },
-      },
-    }, callback);
+function getTravelerPhotos(hotelId, callback) {
+
 }
 
-function updatePhotos(hotelId, caption, callback) {
-  Hotel.update({ hotel_id: hotelId, 'hotel_photos._id': id },
-    {
-      $set: {
-        'hotel_photos.$.caption': caption,
-      },
-    }, callback);
+
+function postTravelerPhoto(hotelId, imageUrl, caption, callback) {
+
 }
 
-function deletePhotos(hotelId, callback) {
-  Hotel.findByIdAndRemove({ hotel_id: hotelId }, callback);
+function putTravelerCaption(hotelId, caption, callback) {
+
+}
+
+function deleteTravelerPhoto(hotelId, callback) {
+
 }
 
 module.exports = {
-  getPhotos,
-  postPhotos,
-  updatePhotos,
-  deletePhotos,
+  getHotelPhotos,
+  getTravelerPhotos,
+  postTravelerPhoto,
+  putTravelerCaption,
+  deleteTravelerPhoto
 }
