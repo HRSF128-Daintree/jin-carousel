@@ -1,12 +1,12 @@
 const db = require('../database-postgresql');
 
 function getHotelPhotos(hotelId, callback) {
-  const q = `SELECT h_imageUrl, caption FROM hotel_photos INNER JOIN hotels ON hotel_photos.hotel_id = hotels.id WHERE hotel_photos.hotel_id = 23`;
+  const q = `SELECT h_imageUrl FROM hotel_photos WHERE hotel_id = ${hotelId}`;
   db.query(q, callback);
 }
 
 function getTravelerPhotos(hotelId, callback) {
-  const q = `SELECT t_imageUrl, caption FROM traveler_photos INNER JOIN hotels ON traveler_photos.hotel_id = hotels.id WHERE traveler_photos.hotel_id = ${hotelId}`;
+  const q = `SELECT t_imageUrl FROM traveler_photos WHERE hotel_id = ${hotelId}`;
   db.query(q, callback);
 }
 
@@ -30,3 +30,6 @@ module.exports = {
   putTravelerCaption,
   deleteTravelerPhoto
 }
+
+
+// const q = `SELECT t_imageUrl, caption FROM traveler_photos INNER JOIN hotels ON traveler_photos.hotel_id = hotels.id WHERE traveler_photos.hotel_id = ${hotelId}`;
