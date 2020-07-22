@@ -27,29 +27,30 @@ class App extends Component {
     const splitUrl = window.location.href.split('/');
     const hotelID = splitUrl[splitUrl.length - 1] || '1';
 
-    axios.get(`/api/${hotelID}/photos`)
+    axios.get(`/api/${hotelID}/hotelphotos`)
       .then(res => {
-        res.data.photos.forEach((photo, idx) => photo.idx = idx); // assign each photo an idx
-        this.setState({ hotel: res.data });
+        console.log('compmount: ', res)
+        res.data.rows.forEach((photo, idx) => photo.idx = idx); // assign each photo an idx
+        this.setState({ hotel: res.data.rows });
         // console.log('HOTEL:', this.state.hotel);
       })
-      .then( () => this.setState({ albums: this.getAlbums() }) );
+      // .then( () => this.setState({ albums: this.getAlbums() }) );
   }
 
-  static getRandIdx(albums, offLimits) { // doesn't return 0 or 1 ('All photos' & 'Traveler')
-    const idx = Math.floor( Math.random() * ((albums.length - 1) - 2) + 2 );
-    return !offLimits.includes(albums[idx]) ? idx : App.getRandIdx(albums, offLimits);
-  }
+  // static getRandIdx(albums, offLimits) { // doesn't return 0 or 1 ('All photos' & 'Traveler')
+  //   const idx = Math.floor( Math.random() * ((albums.length - 1) - 2) + 2 );
+  //   return !offLimits.includes(albums[idx]) ? idx : App.getRandIdx(albums, offLimits);
+  // }
 
-  getAlbums() {
-    const { hotel } = this.state;
-    const albums = hotel.photoAlbums;
-    const offLimits = [ 'Favorites' ];
-    const secondAlbum = albums[ App.getRandIdx(albums, offLimits) ];
+  // getAlbums() {
+  //   const { hotel } = this.state;
+  //   const albums = hotel.photoAlbums;
+  //   const offLimits = [ 'Favorites' ];
+  //   const secondAlbum = albums[ App.getRandIdx(albums, offLimits) ];
 
-    offLimits.push(secondAlbum);
-    return [ albums[1], secondAlbum, albums[App.getRandIdx(albums, offLimits)] ];
-  }
+  //   offLimits.push(secondAlbum);
+  //   return [ albums[1], secondAlbum, albums[App.getRandIdx(albums, offLimits)] ];
+  // }
 
   showPrev() {
     const { currIdx } = this.state;
@@ -89,7 +90,7 @@ class App extends Component {
         <Outer>
           <Container>
             <Carousel
-              photos={hotel.photos}
+              photos={hotel.h_imageUrl}
               currIdx={currIdx}
               showPrev={this.showPrev}
               showNext={this.showNext}

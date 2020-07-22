@@ -7,9 +7,9 @@ function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toISOString().slice(0,10);
 }
 
-var counter = 25000000;
+var counter = 0;
 const dataGen = () => {
-  writer.pipe(fs.createWriteStream('traveler_photos6.csv'));
+  writer.pipe(fs.createWriteStream('traveler_photos1.csv'));
   for (let i = 0; i < 5000000; i +=1 ) {
     const fakeDate = randomDate(new Date(1910, 0, 1), new Date(2020, 0, 1))
 
